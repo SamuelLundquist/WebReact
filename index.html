@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Menu</title>
+		<link rel="stylesheet" href='./style/index.css'>
+		<link href="https://fonts.googleapis.com/css?family=Lato|Montserrat&display=swap" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+	</head>
+	<body>
+		<div class="menu fadeIn">
+					<h1>React</h1>
+					<div class="main_menu_button one" ><a id="play_button">Play</a></div>
+					<div class="main_menu_button one" ><a class="nav_button">Options</a></div>
+					<div class="options_menu_button toggle one"><a class="sound_button">Sounds<div><div class="soundChk"></div></div></a></div>
+					<div class="options_menu_button toggle one"><a class="music_button">Music<div><div class="musChk"></div></div></a></div>
+					<div class="options_menu_button one"><a class="nav_button">Back</a></div>
+		</div>
+		<div class="footer fadeIn">
+			<div>Samuel Lundquist</div>
+			<div id="ft_date">November, 2020</div>
+		</div>
+		<div class="gameWindow">
+			<span id="gameUI">
+				<div id="lifeBar"></div>
+				<div>
+					<div>High Score:</div>
+					<div id="hscore">0</div>
+				</div>
+				<h1 id="score">0</h1>
+			</span>
+			<div class="playArea">
+			</div>
+		</div>
+		<div class="overMenu">
+					<h1>Oof</h1>
+					<div class="main_menu_button2" ><a id="restart_button">Restart</a></div>
+					<div class="main_menu_button2" ><a class="nav_button">Options</a></div>
+					<div class="main_menu_button2" ><a id="main_menu_button">Main Menu</a></div>
+					<div class="options_menu_button2 toggle"><a class="sound_button">Sounds<div><div class="soundChk"></div></div></a></div>
+					<div class="options_menu_button2 toggle"><a class="music_button">Music<div><div class="musChk"></div></div></a></div>
+					<div class="options_menu_button2"><a class="nav_button">Back</a></div>
+		</div>
+	</body>
+	<script src="./src/jquery-3.4.0.min.js"></script>
+	<script type="text/javascript" src="./src/nav.js"></script>
+</html>

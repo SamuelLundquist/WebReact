@@ -1,0 +1,215 @@
+* {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+	supported by Chrome, Edge, Opera and Firefox */
+}
+html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+body {
+	margin: 0;
+	padding: 0;
+	color: white;
+	background-color: black;
+	font-family: 'Montserrat', sans-serif;
+	height: 100%;
+	width: 100%;
+}
+h1 {
+	font-size: 3em;
+}
+span {
+	margin: 0;
+	text-align: center;
+}
+span div {
+	margin: 0;
+	padding-top: 10px;
+	display: inline-flex;
+}
+span div div {
+	margin: 0 4px;
+}
+span h1 {
+	margin: 10px 0;
+}
+a {
+	display: block;
+	font-size: 1.5em;
+	font-weight: bold;
+	width:90%;
+	padding: 10px 5%;
+	color: white;
+	text-decoration: none;
+	border-radius: 10px;
+}
+a:hover {
+	color: black;
+	background-color: white;
+}
+a:hover div{
+	background-color: lightgrey;
+}
+.toggle a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.toggle div {
+	height: 1em;
+	width: 1em;
+	background-color: white;
+	border-radius: 10%;
+}
+.toggle div div {
+	border-radius: 50%;
+	height: .7em;
+	width:.7em;
+	margin:.15em;
+}
+.toggle div div.checked {
+	background-color: black;
+}
+#gameUI {
+
+}
+#lifeBar {
+	position: absolute;
+	margin: 20px;
+	padding: 0;
+	top: 0;
+	left: 0;
+	display: inline-block;
+}
+.life {
+	width: 20px;
+	padding-right: 10px;
+}
+.menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding-top: 30vh;
+	margin: auto;
+	max-width: 50vw;
+	text-align: center;
+}
+.fadeIn {
+	opacity: 0;
+	-webkit-transition: opacity 2s ease-in;
+	-moz-transition: opacity 2s ease-in;
+	-ms-transition: opacity 2s ease-in;
+	-o-transition: opacity 2s ease-in;
+	transition: opacity 2s ease-in;
+}
+.fadeIn.load {
+	opacity: 1;
+}
+.fadeIn.hide {
+	visibility: collapse;
+}
+.options_menu_button {
+	height: 0;
+	margin: 0;
+	padding: 0;
+	visibility: collapse;
+}
+.options_menu_button.hider {
+	height: auto;
+	margin-bottom: 1em;
+	visibility: visible;
+}
+.main_menu_button {
+	height: auto;
+	margin-bottom: 1em;
+}
+.main_menu_button.hider {
+	height: 0;
+	margin: 0;
+	padding: 0;
+	visibility: collapse;
+}
+.options_menu_button2 {
+	height: 0;
+	margin: 0;
+	padding: 0;
+	visibility: collapse;
+}
+.options_menu_button2.hider {
+	height: auto;
+	margin-bottom: 1em;
+	visibility: visible;
+}
+.main_menu_button2 {
+	height: auto;
+	margin-bottom: 1em;
+}
+.main_menu_button2.hider {
+	height: 0;
+	margin: 0;
+	padding: 0;
+	visibility: collapse;
+}
+.footer {
+	position: absolute;
+	bottom: 0;
+	font-style: italic;
+	display: inline-flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.footer div {
+	padding: 1vw;
+}
+.footer #ft_date {
+	text-align: right;
+}
+.gameWindow {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	display: none;
+}
+.gameWindow.vis {
+	display: flex;
+	flex-direction: column;
+}
+.playArea {
+	padding: 0;
+	margin: 0 auto 20px;
+	width: 95vw;
+	height: 95%;
+}
+.circle {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background-color: white;
+	border-radius: 50%;
+}
+.overMenu {
+	position: absolute;
+	top: 0;
+	padding-top: 30vh;
+	margin-left: 25vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 50vw;
+	text-align: center;
+	visibility: collapse;
+}
+.overMenu.show {
+	z-index: 2;
+	visibility: visible;
+}
