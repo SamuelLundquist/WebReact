@@ -3,13 +3,13 @@ A simple web game to develop faster reaction times
 
 ## Packages
 
-### Fonts
+### *Fonts*
 - Montserrat - Google Fonts ([https://fonts.google.com/specimen/Montserrat](https://fonts.google.com/specimen/Montserrat))
 
-### Javascript Libraries
+### *Javascript Libraries*
 - JQuery - ([v3.4.0](https://code.jquery.com/jquery-3.4.0.min.js))
 
 ## Resources
 
-### Music
+### *Music*
 - Synthwave D (Game Soundtrack) - by TechnoAXE ([teknoaxe.com](http://teknoaxe.com/))
