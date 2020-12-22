@@ -12,4 +12,4 @@ A simple web game to develop faster reaction times
 ## Resources
 
 ### Music
-- Synthwave D (Game Soundtrack) - by TechnoAXE [teknoaxe.com](http://teknoaxe.com/)
+- Synthwave D (Game Soundtrack) - by TechnoAXE [(teknoaxe.com)](http://teknoaxe.com/)
