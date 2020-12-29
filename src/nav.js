@@ -10,7 +10,6 @@ var clickEvent = 'mousedown';
 var circleSize = 70;
 var score = -1;
 var highscore = 0;
-var spawnTimeFloat = 1000.0;
 var spawnTime = 1000;
 var shrinkTime = 3000;
 var lives = 3;
@@ -171,8 +170,15 @@ function updateScore(){
 }
 
 function updateSpawnTime() {
-	spawnTimeFloat = spawnTimeFloat * 0.99;
-	spawnTime = Math.floor(spawnTimeFloat);
+	if (spawnTime > 700) {
+		spawnTime -= 10;
+	} else if (spawnTime > 500) {
+		spawnTime -= 5;
+	} else if (spawnTime > 300) {
+		spawnTime -= 2;
+	} else {
+		spawnTime -= 1;
+	}
 }
 
 function clickCircle( circ ){
@@ -242,26 +248,6 @@ function createCircle() {
 	}
 }
 
-//Don't need this anymore, I think...
-/*
-function checkCircles() {
-	for (index = 0; index < allCircles.length; index++) {
-
-		let circ = allCircles[index];
-		let size = circ.clientWidth;
-
-		if(size < 60) {
-			updateLives();
-			circ.remove();
-			allCircles = $(".playArea").find(".circle");
-		}
-	}
-	if(!gameover) {
-		window.setTimeout(checkCircles, checkTime);
-	}
-}
-*/
-
 function gameOver() {
 	gameover= true;
 	allCircles.stop();
@@ -276,7 +262,6 @@ function gameStart() {
 	updateScore();
 	initLives();
 	createCircle();
-	//checkCircles();
 	soundHandler(music, 1);
 }
 
@@ -290,7 +275,6 @@ function restartGame() {
 	$(".overMenu").removeClass("show");
 	soundHandler(music, 1);
 	createCircle();
-	//checkCircles();
 }
 
 function playGame() {
