@@ -126,7 +126,7 @@ function loadPreferences() {
 	if (localStorage.getItem("music") == null) {
 		localStorage.setItem("music", mus);
 	}
-	if (localStorage.getItem("highscore") = null) {
+	if (localStorage.getItem("highscore") == null) {
 		localStorage.setItem("highscore", highscore);
 	}
 	muted = JSON.parse(localStorage.getItem("sound"));
