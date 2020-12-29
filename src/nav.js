@@ -6,6 +6,7 @@ var gameOverSound = new Audio('./sounds/oof.ogg');
 var music = new Audio('./sounds/SynthwaveD.mp3');
 music.loop=true;
 var bounds = [0, 0, 0, 0]; /* left top right bottom */
+var clickEvent = 'mousedown';
 var circleSize = 70;
 var score = -1;
 var highscore = 0;
@@ -174,13 +175,12 @@ function updateSpawnTime() {
 	spawnTime = Math.floor(spawnTimeFloat);
 }
 
-function clickCircle(circ){
-	if(!gameover){
+function clickCircle( circ ){
+	if( !gameover ){
 		click();
 		updateScore();
 		$(circ).stop();
 		circ.remove();
-		//spawnTime -= 5;
 		updateSpawnTime();
 		allCircles = $(".playArea").find(".circle");
 	}
@@ -200,7 +200,7 @@ function createCircle() {
 	if(!gameover) {
 		var new_circle = document.createElement('div');
 		new_circle.className = "circle";
-		new_circle.addEventListener("click", function() { clickCircle(new_circle); });
+		new_circle.addEventListener(clickEvent, () => { clickCircle(new_circle) });
 		$(".playArea").append(new_circle);
 
 		while(true) {
@@ -313,6 +313,12 @@ function mainMenu() {
 
 $(document).ready(function(){
 	loadPreferences();
+
+	//If mobile, use touchstart instead of mousedown
+	if('ontouchstart' in document.documentElement) {
+		clickEvent = 'touchstart';
+	}
+
 	$(".fadeIn").addClass("load");
 	$(".nav_button").on('click', options);
 	$(".sound_button").on('click', soundSwitch);
