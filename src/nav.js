@@ -9,6 +9,7 @@ var bounds = [0, 0, 0, 0]; /* left top right bottom */
 var circleSize = 70;
 var score = -1;
 var highscore = 0;
+var spawnTimeFloat = 1000.0;
 var spawnTime = 1000;
 var shrinkTime = 5000;
 var lives = 3;
@@ -50,6 +51,9 @@ function musicSwitch() {
 		music.pause();
 		$(".musChk").removeClass('checked');
 	}
+
+	//Update prefs
+	localStorage.setItem("music", mus);
 
 	//Debug Statement
 	console.log("music toggled");
@@ -164,13 +168,20 @@ function updateScore(){
 		$("#hscore").text(highscore);
 	}
 }
+
+function updateSpawnTime() {
+	spawnTimeFloat = spawnTimeFloat * 0.99;
+	spawnTime = Math.floor(spawnTimeFloat);
+}
+
 function clickCircle(circ){
 	if(!gameover){
 		click();
 		updateScore();
 		$(circ).stop();
 		circ.remove();
-		spawnTime -= 5;
+		//spawnTime -= 5;
+		updateSpawnTime();
 		allCircles = $(".playArea").find(".circle");
 	}
 }
