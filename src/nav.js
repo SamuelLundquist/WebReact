@@ -120,26 +120,29 @@ function getBounds(rect) {
 }
 
 function loadPreferences() {
-	if(localStorage.getItem("sound") != null) {
-		muted = JSON.parse(localStorage.getItem("sound"));
-		if(muted == true) {
-			$(".soundChk").removeClass('checked');
-		} else {
-			$(".soundChk").addClass('checked');
-		}
-		mus = JSON.parse(localStorage.getItem("music"));
-		if(mus == true) {
-			$(".musChk").addClass('checked');
-		} else {
-			$(".musChk").removeClass('checked');
-		}
-		highscore = JSON.parse(localStorage.getItem("highscore"));
-		$("#hscore").text(highscore);
-	} else {
+	if(localStorage.getItem("sound") == null) {
 		localStorage.setItem("sound", muted);
+	}
+	if (localStorage.getItem("music") == null) {
 		localStorage.setItem("music", mus);
+	}
+	if (localStorage.getItem("highscore") = null) {
 		localStorage.setItem("highscore", highscore);
 	}
+	muted = JSON.parse(localStorage.getItem("sound"));
+	if(muted == true) {
+		$(".soundChk").removeClass('checked');
+	} else {
+		$(".soundChk").addClass('checked');
+	}
+	mus = JSON.parse(localStorage.getItem("music"));
+	if(mus == true) {
+		$(".musChk").addClass('checked');
+	} else {
+		$(".musChk").removeClass('checked');
+	}
+	highscore = JSON.parse(localStorage.getItem("highscore"));
+	$("#hscore").text(highscore);
 }
 
 function initLives() {
