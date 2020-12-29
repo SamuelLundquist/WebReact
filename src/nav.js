@@ -304,6 +304,14 @@ $(document).ready(function(){
 	//If mobile, use touchstart instead of mousedown
 	if('ontouchstart' in document.documentElement) {
 		clickEvent = 'touchstart';
+
+	}
+	//If desktop add hover effect for menus
+	else {
+		$('a').hover(
+			function(){ $(this).addClass('hover') },
+			function(){ $(this).removeClass('hover') }
+		)
 	}
 
 	$(".fadeIn").addClass("load");
