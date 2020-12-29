@@ -170,7 +170,7 @@ function clickCircle(circ){
 		updateScore();
 		$(circ).stop();
 		circ.remove();
-		spawnTime -= 10;
+		spawnTime -= 5;
 		allCircles = $(".playArea").find(".circle");
 	}
 }
