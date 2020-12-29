@@ -15,6 +15,7 @@ var shrinkTime = 3000;
 var lives = 3;
 var gameover = false;
 var allCircles = $(".playArea").find(".circle");
+var spawnTimeoutID;
 
 function options() {
 	//User input feedback
@@ -207,65 +208,67 @@ function randCoords() {
 }
 
 function createCircle() {
-	if(!gameover) {
-		var new_circle = document.createElement('div');
-		new_circle.className = "circle";
-		new_circle.addEventListener(clickEvent, () => { clickCircle(new_circle) });
-		$(".playArea").append(new_circle);
 
-		//const for handling timeout issues
-		const timeOut = Date.now() + 400;
+	var new_circle = document.createElement('div');
+	new_circle.className = "circle";
+	new_circle.addEventListener(clickEvent, () => { clickCircle(new_circle) });
+	$(".playArea").append(new_circle);
 
-		while(true) {
-			const coords = randCoords();
-			var overlapCheck = false;
-			new_circle.style.left = coords[0] + "px";
-			new_circle.style.top = coords[1] + "px";
-			for (index = 0; index < allCircles.length; index++) {
-				const circ = allCircles[index].getBoundingClientRect();
-				const new_circ = new_circle.getBoundingClientRect();
-				overlapCheck = !(circ.right < new_circ.left ||
-					circ.left > new_circ.right ||
-					circ.bottom < new_circ.top ||
-					circ.top > new_circ.bottom)
-				if(overlapCheck){
-					break;
-				}
-			}
+	//const for handling timeout issues
+	const timeOut = Date.now() + 400;
 
-			//No overlap found, new circle can be spawned at generated coordinates
-			if(!overlapCheck) {
+	//While loop used to find usable coords for circle to spawn
+	while(true) {
+		const coords = randCoords();
+		var overlapCheck = false;
+		new_circle.style.left = coords[0] + "px";
+		new_circle.style.top = coords[1] + "px";
+		for (index = 0; index < allCircles.length; index++) {
+			const circ = allCircles[index].getBoundingClientRect();
+			const new_circ = new_circle.getBoundingClientRect();
+			overlapCheck = !(circ.right < new_circ.left ||
+				circ.left > new_circ.right ||
+				circ.bottom < new_circ.top ||
+				circ.top > new_circ.bottom)
+			if(overlapCheck){
 				break;
 			}
-
-			//Function taking too long, probably no space on screen, timeout
-			if(timeOut < Date.now())
-			{
-				//No more circles are spawned, game will end
-				new_circle.remove();
-				$(".life").remove();
-				gameOver();
-				return;
-			}
 		}
-		allCircles = $(".playArea").find(".circle");
-		$(new_circle).animate({
-			left: "+=11",
-			top: "+=11",
-			width: "-=22",
-			height: "-=22",
-			opacity: 0.3
-		}, shrinkTime, "linear", function() {
-			updateLives();
-			new_circle.remove();
-			allCircles = $(".playArea").find(".circle");
-		});
 
-		window.setTimeout(createCircle, spawnTime);
+		//No overlap found, new circle can be spawned at generated coordinates
+		if(!overlapCheck) {
+			break;
+		}
+
+		//Function taking too long, probably no space on screen, timeout
+		if(timeOut < Date.now())
+		{
+			//No more circles are spawned, game will end
+			new_circle.remove();
+			$(".life").remove();
+			gameOver();
+			return;
+		}
 	}
+	console.log("Creating circle");
+	allCircles = $(".playArea").find(".circle");
+	$(new_circle).animate({
+		left: "+=11",
+		top: "+=11",
+		width: "-=22",
+		height: "-=22",
+		opacity: 0.3
+	}, shrinkTime, "linear", function() {
+		updateLives();
+		new_circle.remove();
+		allCircles = $(".playArea").find(".circle");
+	});
+
+	spawnTimeoutID = window.setTimeout(createCircle, spawnTime);
 }
 
 function gameOver() {
+	clearTimeout(spawnTimeoutID);
 	gameover= true;
 	allCircles.stop();
 	deleteAllCircles();
