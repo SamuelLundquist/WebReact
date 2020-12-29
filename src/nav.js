@@ -6,12 +6,11 @@ var gameOverSound = new Audio('./sounds/oof.ogg');
 var music = new Audio('./sounds/SynthwaveD.mp3');
 music.loop=true;
 var bounds = [0, 0, 0, 0]; /* left top right bottom */
-var circleSize = 50;
+var circleSize = 70;
 var score = -1;
 var highscore = 0;
 var spawnTime = 1000;
 var shrinkTime = 5000;
-var checkTime = 150;
 var lives = 3;
 var gameover = false;
 var allCircles = $(".playArea").find(".circle");
@@ -150,9 +149,9 @@ function updateLives() {
 	lives -= 1;
 	$(".life")[0].remove();
 	if(lives <= 0) {
-		gameOver();
-	} else if(lives < 3) {
-		soundHandler(ouchSound, 0);
+			gameOver();
+	} else {
+			soundHandler(ouchSound, 0);
 	}
 }
 
@@ -169,6 +168,7 @@ function clickCircle(circ){
 	if(!gameover){
 		click();
 		updateScore();
+		$(circ).stop();
 		circ.remove();
 		spawnTime -= 10;
 		allCircles = $(".playArea").find(".circle");
@@ -212,7 +212,18 @@ function createCircle() {
 				break;
 			}
 		}
-		$(new_circle).animate({ left: "+=11", top: "+=11", width: "-=22", height: "-=22", opacity: 0.3 }, shrinkTime, "linear");
+		$(new_circle).animate({
+			left: "+=11",
+			top: "+=11",
+			width: "-=22",
+			height: "-=22",
+			opacity: 0.3
+		}, shrinkTime, "linear", function() {
+			updateLives();
+			new_circle.remove();
+			allCircles = $(".playArea").find(".circle");
+		});
+
 		allCircles = $(".playArea").find(".circle");
 		if(!gameover) {
 			window.setTimeout(createCircle, spawnTime);
@@ -220,13 +231,15 @@ function createCircle() {
 	}
 }
 
+//Don't need this anymore, I think...
+/*
 function checkCircles() {
 	for (index = 0; index < allCircles.length; index++) {
 
 		let circ = allCircles[index];
 		let size = circ.clientWidth;
 
-		if(size < 30) {
+		if(size < 60) {
 			updateLives();
 			circ.remove();
 			allCircles = $(".playArea").find(".circle");
@@ -236,8 +249,11 @@ function checkCircles() {
 		window.setTimeout(checkCircles, checkTime);
 	}
 }
+*/
+
 function gameOver() {
 	gameover= true;
+	allCircles.stop();
 	deleteAllCircles();
 	$(".overMenu").addClass("show");
 	soundHandler(music, -1);
@@ -249,7 +265,7 @@ function gameStart() {
 	updateScore();
 	initLives();
 	createCircle();
-	checkCircles();
+	//checkCircles();
 	soundHandler(music, 1);
 }
 
@@ -263,7 +279,7 @@ function restartGame() {
 	$(".overMenu").removeClass("show");
 	soundHandler(music, 1);
 	createCircle();
-	checkCircles();
+	//checkCircles();
 }
 
 function playGame() {
