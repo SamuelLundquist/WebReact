@@ -112,7 +112,7 @@ function soundHandler(soundName, int) {
 function getBounds(rect) {
 	//Get bounds of given rect, return array of [minx, miny, maxx, maxy]
 	//Used to get play area for spawning circles
-	let nrect = rect[0].getBoundingClientRect();
+	const nrect = rect[0].getBoundingClientRect();
 	bounds[0] = nrect["x"];
 	bounds[1] = nrect["y"];
 	bounds[2] = nrect["right"] - circleSize;
@@ -185,26 +185,27 @@ function updateSpawnTime() {
 }
 
 function clickCircle( circ ){
-	if( !gameover ){
-		click();
-		updateScore();
-		$(circ).stop();
-		circ.remove();
-		updateSpawnTime();
-		allCircles = $(".playArea").find(".circle");
-	}
+	click();
+	updateScore();
+	$(circ).stop();
+	circ.remove();
+	updateSpawnTime();
+	allCircles = $(".playArea").find(".circle");
 }
+
 function deleteAllCircles() {
 	for (index = 0; index < allCircles.length; index++) {
 		allCircles[index].remove();
 	}
 	allCircles = $(".playArea").find(".circle");
 }
+
 function randCoords() {
-	let xcord = Math.floor(Math.random() * (bounds[2] - bounds[0] + 1)) + bounds[0];
-	let ycord = Math.floor(Math.random() * (bounds[3] - bounds[1] + 1)) + bounds[1];
+	const xcord = Math.floor(Math.random() * (bounds[2] - bounds[0] + 1)) + bounds[0];
+	const ycord = Math.floor(Math.random() * (bounds[3] - bounds[1] + 1)) + bounds[1];
 	return [xcord, ycord];
 }
+
 function createCircle() {
 	if(!gameover) {
 		var new_circle = document.createElement('div');
@@ -212,14 +213,17 @@ function createCircle() {
 		new_circle.addEventListener(clickEvent, () => { clickCircle(new_circle) });
 		$(".playArea").append(new_circle);
 
+		//const for handling timeout issues
+		const timeOut = Date.now() + 400;
+
 		while(true) {
-			let coords = randCoords();
+			const coords = randCoords();
 			var overlapCheck = false;
 			new_circle.style.left = coords[0] + "px";
 			new_circle.style.top = coords[1] + "px";
 			for (index = 0; index < allCircles.length; index++) {
-				let circ = allCircles[index].getBoundingClientRect();
-				let new_circ = new_circle.getBoundingClientRect();
+				const circ = allCircles[index].getBoundingClientRect();
+				const new_circ = new_circle.getBoundingClientRect();
 				overlapCheck = !(circ.right < new_circ.left ||
 					circ.left > new_circ.right ||
 					circ.bottom < new_circ.top ||
@@ -228,10 +232,23 @@ function createCircle() {
 					break;
 				}
 			}
+
+			//No overlap found, new circle can be spawned at generated coordinates
 			if(!overlapCheck) {
 				break;
 			}
+
+			//Function taking too long, probably no space on screen, timeout
+			if(timeOut < Date.now())
+			{
+				//No more circles are spawned, game will end
+				new_circle.remove();
+				$(".life").remove();
+				gameOver();
+				return;
+			}
 		}
+		allCircles = $(".playArea").find(".circle");
 		$(new_circle).animate({
 			left: "+=11",
 			top: "+=11",
@@ -244,10 +261,7 @@ function createCircle() {
 			allCircles = $(".playArea").find(".circle");
 		});
 
-		allCircles = $(".playArea").find(".circle");
-		if(!gameover) {
-			window.setTimeout(createCircle, spawnTime);
-		}
+		window.setTimeout(createCircle, spawnTime);
 	}
 }
 
@@ -260,7 +274,7 @@ function gameOver() {
 	soundHandler(gameOverSound, 0);
 }
 function gameStart() {
-	let rect = $(".playArea");
+	const rect = $(".playArea");
 	getBounds(rect);
 	updateScore();
 	initLives();
