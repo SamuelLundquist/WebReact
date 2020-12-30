@@ -331,20 +331,6 @@ $(document).ready(function(){
 		)
 	}
 
-	//Event listener for landscape change on mobile
-	window.onorientationchange = function(event) {
-		const orientation = (event.target.screen.orientation || {}).type || event.target.screen.mozOrientation || event.target.screen.msOrientation;
-		if (orientation === "landscape-primary" || orientation === "landscape-secondary") {
-			$(".menu").addClass("landscape");
-			$(".overMenu").addClass("landscape");
-		} else {
-			$(".menu").removeClass("landscape");
-			$(".overMenu").removeClass("landscape");
-		}
-		const rect = $(".playArea");
-		getBounds(rect);
-	};
-
 	$(".fadeIn").addClass("load");
 	$(".nav_button").on('click', options);
 	$(".sound_button").on('click', soundSwitch);
