@@ -101,6 +101,9 @@ a:hover div{
 	max-width: 50vw;
 	text-align: center;
 }
+.menu.landscape {
+	padding-top: 5vh;
+}
 .fadeIn {
 	opacity: 0;
 	-webkit-transition: opacity 2s ease-in;
@@ -208,6 +211,9 @@ a:hover div{
 	width: 50vw;
 	text-align: center;
 	visibility: collapse;
+}
+.overMenu.landscape {
+	padding-top: 5vh;
 }
 .overMenu.show {
 	z-index: 2;
