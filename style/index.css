@@ -12,6 +12,7 @@ html {
 	padding: 0;
 	height: 100%;
 	width: 100%;
+	overflow: hidden;
 }
 body {
 	margin: 0;
@@ -44,11 +45,15 @@ a {
 	display: block;
 	font-size: 1.5em;
 	font-weight: bold;
-	width:90%;
-	padding: 10px 5%;
-	color: white;
+	border-style: solid;
+	padding: 10px;
+	margin: 0;
+	width: auto;
+	border-width: 1px;
+	border-color: white;
 	text-decoration: none;
 	border-radius: 10px;
+	text-align: center;
 }
 a.hover {
 	color: black;
@@ -157,20 +162,6 @@ a:hover div{
 	padding: 0;
 	visibility: collapse;
 }
-.footer {
-	position: absolute;
-	bottom: 0;
-	font-style: italic;
-	display: inline-flex;
-	justify-content: space-between;
-	width: 100%;
-}
-.footer div {
-	padding: 1vw;
-}
-.footer #ft_date {
-	text-align: right;
-}
 .gameWindow {
 	padding: 0;
 	margin: 0;
@@ -221,4 +212,54 @@ a:hover div{
 }
 .overMenuCover.hide {
 	visibility: hidden;
+}
+.credits {
+	position: absolute;
+	top: 0;
+	left: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	transition: left .3s ease-out;
+}
+.credits h1 {
+	position: absolute;
+	top:0;
+}
+.credits h2 {
+	margin: 10px;
+	text-decoration: underline;
+}
+.credits.show {
+	left: 0;
+}
+.position {
+	font-weight: bold;
+}
+.name {
+	font-style: italic;
+}
+.creditsUI {
+	position: absolute;
+	bottom: 0;
+}
+.closeCredits {
+	width: calc(50vw - 20px);
+	margin-bottom: 1em;
+}
+.coffee {
+	width: calc(50vw - 20px);
+	padding-top: calc(.1em + 10px);
+	padding-bottom: calc(.1em + 10px);
+	background-color: white;
+	font-size: 1.3em;
+	color: black;
+	text-align: center;
+	margin-bottom: 1em;
 }

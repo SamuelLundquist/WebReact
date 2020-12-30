@@ -277,7 +277,7 @@ function gameOver() {
 	soundHandler(gameOverSound, 0);
 	$(".overMenuCover").animate({
 		opacity: 0
-	}, 1200 , "linear", function() {
+	}, 1000 , "linear", function() {
 		$(".overMenuCover").addClass("hide");
 		$(".overMenuCover").css({opacity: 1});
 	});
@@ -322,6 +322,11 @@ function mainMenu() {
 	$(".fadeIn").removeClass("hide");
 }
 
+function credits() {
+	click();
+	$(".credits").toggleClass("show");
+}
+
 $(document).ready(function(){
 	loadPreferences();
 
@@ -345,4 +350,5 @@ $(document).ready(function(){
 	$("#play_button").on('click', playGame);
 	$("#restart_button").on('click', restartGame);
 	$("#main_menu_button").on('click', mainMenu);
+	$(".toggleCredits").on('click', credits);
 });
