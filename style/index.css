@@ -104,7 +104,7 @@ a:hover div{
 	justify-content: flex-start;
 	padding-top: 30vh;
 	margin: auto;
-	max-width: 50vw;
+	max-width: 60vw;
 	text-align: center;
 }
 .fadeIn {
@@ -197,7 +197,7 @@ a:hover div{
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	width: 50vw;
+	width: 60vw;
 	text-align: center;
 	visibility: collapse;
 }
@@ -251,15 +251,13 @@ a:hover div{
 	bottom: 0;
 }
 .closeCredits {
-	width: calc(50vw - 20px);
+	width: calc(60vw - 20px);
 	margin-bottom: 1em;
 }
 .coffee {
-	width: calc(50vw - 20px);
-	padding-top: calc(.1em + 10px);
-	padding-bottom: calc(.1em + 10px);
+	width: calc(60vw - 20px);
 	background-color: white;
-	font-size: 1.3em;
+	font-size: 1.5em;
 	color: black;
 	text-align: center;
 	margin-bottom: 1em;
