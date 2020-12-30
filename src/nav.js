@@ -277,7 +277,7 @@ function gameOver() {
 	soundHandler(gameOverSound, 0);
 	$(".overMenuCover").animate({
 		opacity: 0
-	}, 1000 , "linear", function() {
+	}, 800 , "linear", function() {
 		$(".overMenuCover").addClass("hide");
 		$(".overMenuCover").css({opacity: 1});
 	});
