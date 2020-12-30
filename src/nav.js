@@ -275,6 +275,12 @@ function gameOver() {
 	$(".overMenu").addClass("show");
 	soundHandler(music, -1);
 	soundHandler(gameOverSound, 0);
+	$(".overMenuCover").animate({
+		opacity: 0
+	}, 1200 , "linear", function() {
+		$(".overMenuCover").addClass("hide");
+		$(".overMenuCover").css({opacity: 1});
+	});
 }
 function gameStart() {
 	const rect = $(".playArea");
@@ -293,6 +299,7 @@ function restartGame() {
 	gameover = false;
 	spawnTime = 1000;
 	$(".overMenu").removeClass("show");
+	$(".overMenuCover").removeClass("hide");
 	soundHandler(music, 1);
 	createCircle();
 }
@@ -310,9 +317,9 @@ function mainMenu() {
 	gameover = false;
 	spawnTime = 1000;
 	$(".overMenu").removeClass("show");
+	$(".overMenuCover").removeClass("hide");
 	$(".gameWindow").removeClass('vis');
 	$(".fadeIn").removeClass("hide");
-	$(".overMenu").removeClass("show");
 }
 
 $(document).ready(function(){
