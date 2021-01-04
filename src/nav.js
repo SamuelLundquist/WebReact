@@ -19,7 +19,7 @@ var spawnTimeoutID;
 
 function options() {
 	//User input feedback
-	click();
+	soundHandler(clickSound, 0);;
 
 	//Determine if game over window or main menu window
 	var optionsMenu = ".options_menu_button";
@@ -41,7 +41,7 @@ function options() {
 
 function musicSwitch() {
 	//User input feedback
-	click();
+	soundHandler(clickSound, 0);;
 
 	//Check music if enabled, uncheck if disabled
 	if(!mus) {
@@ -49,7 +49,6 @@ function musicSwitch() {
 		$(".musChk").addClass('checked');
 	}else{
 		mus=false;
-		music.pause();
 		$(".musChk").removeClass('checked');
 	}
 
@@ -66,53 +65,39 @@ function soundSwitch() {
 		muted = false;
 		localStorage.setItem("sound", muted);
 		$(".soundChk").addClass('checked');
-		if(mus){
-			$(".musChk").addClass('checked');
-			music.play();
-		}
 	}else{
 		muted = true;
 		localStorage.setItem("sound", muted);
 		$(".soundChk").removeClass('checked');
-		$(".musChk").removeClass('checked');
-		music.pause();
 	}
 
 	//User input feedback, will not play if sound disabled
-	click();
+	soundHandler(clickSound, 0);;
 
 	//Debug Statement
 	console.log("sound toggled");
 }
-
-function click() {
-	soundHandler(clickSound, 0);
-}
-
-function soundHandler(soundName, int) {
-	//Check for music input, if music and music disabled, then unplayable
-	var playable = true;
-	if(soundName == music && !mus) {
-		playable = false;
-	}
-	//If sound enabled, play/restart/pause given sound
-	if(!muted && playable){
-		if(int == 0) {
-			soundName.play();
-		}
-		else if(int == 1) {
-			soundName.currentTime = 0;
-			soundName.play();
-		}
-		else {
-			soundName.pause();
-		}
+async function musicHandler(musicName, int) {
+	//If music enabled, play/restart/pause given music
+	if(mus && int) {
+		musicName.currentTime = 0;
+		musicName.play();
+	} else {
+		musicName.pause();
 	}
 }
 
-function getBounds(rect) {
+async function soundHandler(soundName) {
+	//If sound enabled, play sound
+	if(!muted){
+		soundName.play();
+	}
+}
+
+function getBounds() {
 	//Get bounds of given rect, return array of [minx, miny, maxx, maxy]
 	//Used to get play area for spawning circles
+	const rect = $(".playArea");
 	const nrect = rect[0].getBoundingClientRect();
 	bounds[0] = nrect["x"];
 	bounds[1] = nrect["y"];
@@ -144,6 +129,12 @@ function loadPreferences() {
 	}
 	highscore = JSON.parse(localStorage.getItem("highscore"));
 	$("#hscore").text(highscore);
+}
+
+function initVars() {
+	score = -1;
+	gameover = false;
+	spawnTime = 1000;
 }
 
 function initLives() {
@@ -186,7 +177,7 @@ function updateSpawnTime() {
 }
 
 function clickCircle( circ ){
-	click();
+	soundHandler(clickSound, 0);;
 	updateScore();
 	$(circ).stop();
 	circ.remove();
@@ -195,6 +186,8 @@ function clickCircle( circ ){
 }
 
 function deleteAllCircles() {
+	clearTimeout(spawnTimeoutID);
+	allCircles.stop();
 	for (index = 0; index < allCircles.length; index++) {
 		allCircles[index].remove();
 	}
@@ -207,7 +200,7 @@ function randCoords() {
 	return [xcord, ycord];
 }
 
-function createCircle() {
+async function createCircle() {
 
 	var new_circle = document.createElement('div');
 	new_circle.className = "circle";
@@ -268,54 +261,38 @@ function createCircle() {
 }
 
 function gameOver() {
-	clearTimeout(spawnTimeoutID);
 	gameover= true;
-	allCircles.stop();
 	deleteAllCircles();
-	$(".overMenu").addClass("show");
-	soundHandler(music, -1);
+	musicHandler(music, 0);
 	soundHandler(gameOverSound, 0);
-	$(".overMenuCover").animate({
-		opacity: 0
-	}, 800 , "linear", function() {
-		$(".overMenuCover").addClass("hide");
-		$(".overMenuCover").css({opacity: 1});
-	});
+	$(".overMenu").addClass("show");
+	$(".overMenuCover").addClass("hide");
 }
 function gameStart() {
-	const rect = $(".playArea");
-	getBounds(rect);
+	getBounds();
+	initVars();
 	updateScore();
 	initLives();
 	createCircle();
-	soundHandler(music, 1);
+	musicHandler(music, 1);
 }
 
 function restartGame() {
-	click();
-	score = -1;
-	updateScore();
-	initLives();
-	gameover = false;
-	spawnTime = 1000;
+	soundHandler(clickSound, 0);;
 	$(".overMenu").removeClass("show");
 	$(".overMenuCover").removeClass("hide");
-	soundHandler(music, 1);
-	createCircle();
+	gameStart();
 }
 
 function playGame() {
-	click();
+	soundHandler(clickSound, 0);;
 	$(".gameWindow").addClass('vis');
 	$(".fadeIn").addClass("hide");
 	gameStart();
 }
 
 function mainMenu() {
-	click();
-	score = -1;
-	gameover = false;
-	spawnTime = 1000;
+	soundHandler(clickSound, 0);;
 	$(".overMenu").removeClass("show");
 	$(".overMenuCover").removeClass("hide");
 	$(".gameWindow").removeClass('vis');
@@ -323,7 +300,7 @@ function mainMenu() {
 }
 
 function credits() {
-	click();
+	soundHandler(clickSound, 0);;
 	$(".credits").toggleClass("show");
 }
 

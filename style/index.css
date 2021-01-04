@@ -210,9 +210,10 @@ a:hover div{
 	height: 100%;
 	width: 100%;
 	background-color: black;
+	transition: margin-left .5s linear 1s;
 }
 .overMenuCover.hide {
-	visibility: hidden;
+	margin-left: 100%;
 }
 .credits {
 	position: absolute;
