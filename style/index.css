@@ -63,7 +63,7 @@ a:hover div{
 	background-color: lightgrey;
 }
 .toggle a {
-	width: calc(100% - 20px);
+	width: calc(100% - 22px);
 	display: inline-flex;
 	align-items: center;
 	justify-content: space-between;
