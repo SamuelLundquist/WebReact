@@ -77,7 +77,7 @@ function soundSwitch() {
 	//Debug Statement
 	console.log("sound toggled");
 }
-async function musicHandler(musicName, int) {
+function musicHandler(musicName, int) {
 	//If music enabled, play/restart/pause given music
 	if(mus && int) {
 		musicName.currentTime = 0;
@@ -87,7 +87,7 @@ async function musicHandler(musicName, int) {
 	}
 }
 
-async function soundHandler(soundName) {
+function soundHandler(soundName) {
 	//If sound enabled, play sound
 	if(!muted){
 		soundName.play();
@@ -200,7 +200,7 @@ function randCoords() {
 	return [xcord, ycord];
 }
 
-async function createCircle() {
+function createCircle() {
 
 	var new_circle = document.createElement('div');
 	new_circle.className = "circle";
@@ -328,4 +328,7 @@ $(document).ready(function(){
 	$("#restart_button").on('click', restartGame);
 	$("#main_menu_button").on('click', mainMenu);
 	$(".toggleCredits").on('click', credits);
+	$(".coffee").on('click', () => {
+		window.location.href = 'https://www.slgames.dev/donate';
+	});
 });
