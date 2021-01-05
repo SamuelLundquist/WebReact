@@ -4,12 +4,13 @@ var clickSound = new Audio('./sounds/click.ogg');
 var ouchSound = new Audio('./sounds/ouch.ogg');
 var gameOverSound = new Audio('./sounds/oof.ogg');
 var music = new Audio('./sounds/SynthwaveD.mp3');
+var wowSound = new Audio('./sounds/wow.ogg');
 music.loop=true;
 var bounds = [0, 0, 0, 0]; /* left top right bottom */
-var clickEvent = 'mousedown';
 var circleSize = 70;
 var score = -1;
 var highscore = 0;
+var newHighscore = false;
 var spawnTime = 1000;
 var shrinkTime = 2000;
 var lives = 3;
@@ -19,7 +20,7 @@ var spawnTimeoutID;
 
 function options() {
 	//User input feedback
-	soundHandler(clickSound, 0);;
+	soundHandler(clickSound);
 
 	//Determine if game over window or main menu window
 	var optionsMenu = ".options_menu_button";
@@ -41,7 +42,7 @@ function options() {
 
 function musicSwitch() {
 	//User input feedback
-	soundHandler(clickSound, 0);;
+	soundHandler(clickSound);
 
 	//Check music if enabled, uncheck if disabled
 	if(!mus) {
@@ -72,7 +73,7 @@ function soundSwitch() {
 	}
 
 	//User input feedback, will not play if sound disabled
-	soundHandler(clickSound, 0);;
+	soundHandler(clickSound);
 
 	//Debug Statement
 	console.log("sound toggled");
@@ -135,6 +136,7 @@ function initVars() {
 	score = -1;
 	gameover = false;
 	spawnTime = 1000;
+	newHighscore = false;
 }
 
 function initLives() {
@@ -150,7 +152,7 @@ function updateLives() {
 	if(lives <= 0) {
 			gameOver();
 	} else {
-			soundHandler(ouchSound, 0);
+			soundHandler(ouchSound);
 	}
 }
 
@@ -161,6 +163,11 @@ function updateScore(){
 		highscore = score;
 		localStorage.setItem("highscore", highscore);
 		$("#hscore").text(highscore);
+		if(!newHighscore) {
+				$(".hiscoreNotif").addClass("show");
+				newHighscore = true;
+				soundHandler(wowSound);
+		}
 	}
 }
 
@@ -177,7 +184,7 @@ function updateSpawnTime() {
 }
 
 function clickCircle( circ ){
-	soundHandler(clickSound, 0);;
+	soundHandler(clickSound);
 	updateScore();
 	$(circ).stop();
 	circ.remove();
@@ -204,7 +211,7 @@ function createCircle() {
 
 	var new_circle = document.createElement('div');
 	new_circle.className = "circle";
-	new_circle.addEventListener(clickEvent, () => { clickCircle(new_circle) });
+	new_circle.addEventListener('mousedown', () => { clickCircle(new_circle) });
 	$(".playArea").append(new_circle);
 
 	//const for handling timeout issues
@@ -264,7 +271,7 @@ function gameOver() {
 	gameover= true;
 	deleteAllCircles();
 	musicHandler(music, 0);
-	soundHandler(gameOverSound, 0);
+	soundHandler(gameOverSound);
 	$(".overMenu").addClass("show");
 	$(".overMenuCover").addClass("hide");
 }
@@ -278,47 +285,36 @@ function gameStart() {
 }
 
 function restartGame() {
-	soundHandler(clickSound, 0);;
+	soundHandler(clickSound);
 	$(".overMenu").removeClass("show");
 	$(".overMenuCover").removeClass("hide");
+	$(".hiscoreNotif").removeClass("show");
 	gameStart();
 }
 
 function playGame() {
-	soundHandler(clickSound, 0);;
+	soundHandler(clickSound);
 	$(".gameWindow").addClass('vis');
 	$(".fadeIn").addClass("hide");
 	gameStart();
 }
 
 function mainMenu() {
-	soundHandler(clickSound, 0);;
+	soundHandler(clickSound);
 	$(".overMenu").removeClass("show");
 	$(".overMenuCover").removeClass("hide");
+	$(".hiscoreNotif").removeClass("show");
 	$(".gameWindow").removeClass('vis');
 	$(".fadeIn").removeClass("hide");
 }
 
 function credits() {
-	soundHandler(clickSound, 0);;
+	soundHandler(clickSound);
 	$(".credits").toggleClass("show");
 }
 
 $(document).ready(function(){
 	loadPreferences();
-
-	//If mobile, use touchstart instead of mousedown
-	if('ontouchstart' in document.documentElement) {
-		clickEvent = 'touchstart';
-
-	}
-	//If desktop add hover effect for menus
-	else {
-		$('a').hover(
-			function(){ $(this).addClass('hover') },
-			function(){ $(this).removeClass('hover') }
-		)
-	}
 
 	$(".fadeIn").addClass("load");
 	$(".nav_button").on('click', options);
