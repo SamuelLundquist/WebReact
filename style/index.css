@@ -211,7 +211,6 @@ a:hover div{
 .gameWindow.vis {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 }
 .playArea {
 	padding: 0;
