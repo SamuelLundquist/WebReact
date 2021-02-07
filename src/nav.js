@@ -18,6 +18,7 @@ var lives = 3;
 var gameover = false;
 var allCircles = $(".playArea").find(".circle");
 var spawnTimeoutID;
+var clickEvent = 'mousedown';
 
 function options() {
 	//User input feedback
@@ -212,7 +213,7 @@ function createCircle() {
 
 	var new_circle = document.createElement('div');
 	new_circle.className = "circle";
-	new_circle.addEventListener('mousedown', () => { clickCircle(new_circle) });
+	new_circle.addEventListener(clickEvent, () => { clickCircle(new_circle) });
 	$(".playArea").append(new_circle);
 
 	//const for handling timeout issues
@@ -316,6 +317,10 @@ function credits() {
 
 $(document).ready(function(){
 	loadPreferences();
+
+	if('ontouchstart' in document.documentElement) {
+		clickEvent = 'touchstart';
+	}
 
 	$(".fadeIn").addClass("load");
 	$(".nav_button").on('click', options);
