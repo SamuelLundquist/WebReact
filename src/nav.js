@@ -6,6 +6,7 @@ var gameOverSound = new Audio('./sounds/oof.ogg');
 var music = new Audio('./sounds/SynthwaveD.mp3');
 var wowSound = new Audio('./sounds/wow.ogg');
 music.loop=true;
+music.volume = 0.6;
 var bounds = [0, 0, 0, 0]; /* left top right bottom */
 var circleSize = 70;
 var score = -1;
