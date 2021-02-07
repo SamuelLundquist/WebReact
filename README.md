@@ -1,6 +1,8 @@
 # React
 A simple web game to develop faster reaction times
 
+Try it out here: [https://www.slgames.dev/react](https://www.slgames.dev/react)
+
 ## Packages
 
 ### *Fonts*
